@@ -1,0 +1,32 @@
+{
+  "jspm": {
+    "dependencies": {
+      "jspm": "^0.14.0",
+      "jsx": "github:floatdrop/plugin-jsx@^0.1.1"
+    }
+  },
+  "name": "ffapp",
+  "version": "1.0.0",
+  "main": "background.js",
+  "dependencies": {
+    "async": "^0.9.0",
+    "classnames": "^1.1.4",
+    "dexie": "^1.0.3",
+    "immutable": "^3.6.2",
+    "immutable.js": "^1.1.2",
+    "jspm": "^0.14.0",
+    "object-assign": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel": "^4.6.0",
+    "babelify": "^5.0.3",
+    "eventemitter3": "^0.1.6",
+    "expect.js": "^0.3.1",
+    "react": "^0.12.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

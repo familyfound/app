@@ -1,0 +1,115 @@
+
+.NoteList_note {
+  cursor: pointer;
+}
+
+.NoteList_date {
+    text-align: right;
+    font-size: 80%;
+    color: #777;
+}
+
+.NoteList_text {
+    margin-bottom: 5px;
+    font-size: 90%;
+}
+
+.CreateNote {
+  padding: 10px 0 0;
+  box-sizing: border-box;
+  text-align: center;
+  font-style: italic;
+  font-variant: small-caps;
+  text-transform: lowercase;
+  cursor: pointer;
+}
+
+.Assistant {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 10px;
+  background-color: #f0fff0;
+  border-radius: 5px;
+  width: 300px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 10px rgba(0,0,0,.2);
+  font-family: sans-serif;
+  z-index: 100000;
+
+  form {
+    margin: 0;
+  }
+
+  &_head {
+    font-weight: bold;
+
+    a {
+      color: #555;
+      font-variant: small-caps;
+      padding: 0 10px;
+      display: inline-block;
+      position: relative;
+      top: -1px;
+    }
+  }
+
+  textarea {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px #aaa inset;
+    border: none;
+    border-radius: 3px;
+    margin-bottom: 6px;
+    min-height: 100px;
+    padding: 10px 8px;
+    outline: none;
+
+    &:focus {
+      box-shadow: 0 0 5px #77a inset;
+      border: none;
+      outline: none;
+    }
+  }
+
+  &.Closer-closed {
+    width: auto;
+    padding: 10px;
+    text-align: right;
+  }
+}
+
+.Closer {
+  &_closer {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px 10px;
+    color: #aaa;
+
+    &:hover {
+      color: black;
+    }
+  }
+}
+
+.NoteList {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.NoteList_note {
+  &:not(:last-of-type) {
+    margin-bottom: 5px;
+  }
+
+  padding: 10px;
+  border-radius: 5px;
+  background-color: white;
+  color: #333;
+  font-family: sans-serif;
+  box-shadow: 0px 1px 7px rgba(0,0,0,.1);
+}
+

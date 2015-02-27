@@ -1,0 +1,29 @@
+{
+  "name": "FamilyFound",
+  "description": "Find research opportunities on FamilySearch",
+  "version": "0.1",
+  "manifest_version": 2,
+  "options_page": "window.html",
+  "permissions": [
+    "tabs",
+    "cookies",
+    "webRequest",
+    "*://*.familysearch.org/",
+    "*://familysearch.org/"
+  ],
+  "background": {
+    "scripts": ["build/background.js"]
+  },
+  "content_scripts": [{
+    "matches": ["https://familysearch.org/tree/*"],
+    "css": ["build/inject.css"],
+    "js": ["build/lib.js", "build/inject.js"]
+  }],
+  "web_accessible_resources": [
+    "build/inception.js"
+  ],
+  "externally_connectable": {
+    "matches": ["*://familyfound.local:*/*"]
+  },
+  "icons": { "16": "icon-16.png", "128": "icon-128.png" }
+}
