@@ -1,0 +1,35 @@
+
+.Node-pending > circle {
+    fill: #ccc;
+}
+
+.Node-processed > circle {
+    fill: rgb(158, 178, 208);
+}
+
+
+/* grandchildren */
+.Node_gloading {
+    fill: rgb(33, 221, 255);
+}
+
+.Node-processed > .Node_gloading-back {
+    fill: rgb(230, 234, 255);
+}
+
+.Node-processed > .Node_gloaded {
+    fill: rgb(137, 213, 170);
+}
+
+/* children */
+.Node_loading {
+    fill: rgb(33, 221, 255);
+}
+
+.Node-processed > .Node_loading-back {
+    fill: rgb(230, 234, 255);
+}
+
+.Node-processed > .Node_loaded {
+    fill: rgb(108, 117, 165);
+}

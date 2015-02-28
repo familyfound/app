@@ -1,0 +1,98 @@
+
+@import (inline) "./app/fan.css";
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: white;
+}
+
+.LoadingWrap {
+  text-align: center;
+  padding: 100px 0;
+  color: #aaa;
+
+  &-login {
+    color: #555;
+  }
+}
+
+.App {
+}
+
+.App-noconnect {
+  text-align: center;
+  padding: 100px 0;
+}
+
+.App-loadinguser {
+  text-align: center;
+  font-size: 30px;
+  color: #aaa;
+  font-weight: bold;
+  padding: 100px 0;
+}
+
+.App_header {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 30px;
+  box-shadow: 0 3px 5px #ccc;
+  display: flex;
+}
+
+.App_brand {
+  flex: 1;
+}
+
+.App_body {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+
+.App_start {
+  padding: 30px 50px;
+  border: none;
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  font-size: 50px;
+  display: block;
+  width: 500px;
+  margin: 100px auto;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px #aaa;
+
+  &:hover {
+    box-shadow: 0 5px 15px #555;
+  }
+}
+
+.SearchProgress {
+  font-size: 40px;
+}
+
+svg {
+  margin: 0 auto;
+  display: block;
+}
+
+.App_status {
+  text-align: center;
+}
+
+.App_searchmore {
+  cursor: pointer;
+  background-color: green;
+  font-size: 50px;
+  padding: 10px 50px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+@import "./pages/leads.less";
+

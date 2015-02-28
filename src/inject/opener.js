@@ -10,11 +10,13 @@ export default React.createClass({
     return {open: false}
   },
 
-  _onCancel() {
+  _onCancel(evt) {
+    if (evt) evt.preventDefault()
     this.setState({open: false})
   },
 
-  _onOpen() {
+  _onOpen(evt) {
+    if (evt) evt.preventDefault()
     this.setState({open: true})
   },
 

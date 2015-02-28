@@ -1,10 +1,13 @@
 
-import setupDb from './db'
+import FluxServer from '../flux/flux-server'
+import ChromeProxy from '../flux/chrome-proxy'
+
 import TabListener from './tab-listener'
 import NoteActions from './note-actions'
 import DexieActions from './dexie-actions'
-import FluxServer from '../flux/flux-server'
-import ChromeProxy from '../flux/chrome-proxy'
+
+import normalizeUrl from './normalize-url'
+import setupDb from './db'
 
 let db = setupDb()
 let flux = new FluxServer({
@@ -16,12 +19,13 @@ let flux = new FluxServer({
 })
 
 window.chrome.runtime.onConnect.addListener(port => {
+  let url = normalizeUrl(port.sender.url)
   flux.addClient({
     proxy: new ChromeProxy(port),
     actions: {
       notes: {
-        localAlias: 'notes:' + port.sender.url,
-        creator: new NoteActions(db, port.sender.url),
+        localAlias: 'notes:' + url,
+        creator: new NoteActions(db, url),
       }
     },
   })

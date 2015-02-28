@@ -76,6 +76,6 @@ let types = {
         section: args.section,
       },
     }
-  }
+  },
 }
 

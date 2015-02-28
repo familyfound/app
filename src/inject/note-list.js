@@ -45,7 +45,7 @@ export default React.createClass({
   render() {
     if (!this.props.notes || this.props.notes === PENDING) return <span>Loading</span>
     return <ul className='NoteList'>
-      {!this.props.notes.size && <li>No notes yet</li>}
+      {!this.props.notes.size && <li>No notes for this page yet</li>}
       {mapIf(this.props.notes, note => note.get('id') === this.state.editing,
         note => <li key={note.get('id')} className='NoteList_note'>
           <MorphComp>

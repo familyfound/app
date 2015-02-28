@@ -13,7 +13,6 @@ import FluxComponent from '../flux/flux-component'
 import Assistant from './'
 
 export default function run(div) {
-  React.unmountComponentAtNode(div)
 
   if (!window.chrome || !window.chrome.runtime) {
     let db = setupDb()
@@ -38,6 +37,7 @@ export default function run(div) {
     }
     */
 
+    React.unmountComponentAtNode(div)
     React.render(<FluxComponent flux={flux}><Assistant/></FluxComponent>, div)
 
   } else {
@@ -53,7 +53,8 @@ export default function run(div) {
     })
 
     flux.connect(proxy).then(() => {
-      React.render(<FluxComponent flux={flux}><Assistant/></FluxComponent>, div)
+      React.unmountComponentAtNode(div)
+      React.render(<FluxComponent flux={flux}><Assistant dashboardUrl={chrome.runtime.getURL('dashboard/index.html')}/></FluxComponent>, div)
     }).catch(error => {
       console.error(error)
       alert('failed to start up')
