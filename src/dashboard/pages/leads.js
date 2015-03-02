@@ -4,6 +4,7 @@ import React from 'react'
 import Leads from '../app/leads'
 import Fan from '../app/fan'
 import classnames from 'classnames'
+import NotesPage from './notes'
 
 export default React.createClass({
   getInitialState() {
@@ -65,6 +66,7 @@ export default React.createClass({
         </div>
         <Leads searcher={this.props.searcher}/>
       </div>
+      <NotesPage/>
     </div>
   }
 })

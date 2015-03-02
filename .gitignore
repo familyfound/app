@@ -1,3 +1,5 @@
 /node_modules
 /build
 /src/flux
+/build-chrome
+/build-chrome.crx

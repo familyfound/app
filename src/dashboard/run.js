@@ -1,71 +1,31 @@
 
-import React from 'react/addons'
+import React from 'react'
+import LoginWrapper from './login-wrapper'
 
-import LeadsPage from './pages/leads'
-import GenSearcher from './app/gen-searcher'
+import FluxComponent from '../flux/flux-component'
 
-import {getUser} from './app/api'
+import FluxClient from '../flux/flux-client'
+import ChromeProxy from '../flux/chrome-proxy'
+import CollectionStore from '../flux/collection-store'
 
-var API = 'https://familysearch.org'
+let port = window.chrome.runtime.connect({name: 'ff-dashboard'})
+  , proxy = new ChromeProxy(port)
 
-var LoginWrapper = React.createClass({
-  getInitialState() {
-    return {
-      loading: true,
-      searcher: null,
-      user: null,
-    }
+let flux = new FluxClient({
+  // client doesn't own any actions
+  stores: {
+    notes: new CollectionStore('notes', true),
+    leads: new CollectionStore('leads', true),
   },
-
-  componentDidMount() {
-    chrome.cookies.get({
-      url: 'https://familysearch.org/',
-      name: 'fssessionid',
-    }, (cookie) => {
-      if (!cookie) return this.setState({loading: false})
-      this.loggedIn(cookie.value)
-    })
-  },
-
-  loggedIn(token) {
-    this.setState({token})
-
-    getUser(API, token, (err, user) => {
-      if (err) {
-        return this._onInvalidLogin()
-      }
-
-      var searcher = window.searcher = new GenSearcher({
-        api: API,
-        token: token,
-        maxStrong: 5,
-        maxBack: 5,
-        maxDown: 2,
-      })
-
-      this.setState({user, searcher, loading: false})
-    })
-  },
-
-  _onInvalidLogin() {
-    this.setState({user: null, searcher: null, token: false, loading: false})
-  },
-
-  render() {
-    if (!window.chrome || !window.chrome.runtime) {
-      return <h1 className='LoadingWrap'>This app requires a chrome extensions</h1>
-    }
-    if (this.state.loading) {
-      return <h1 className='LoadingWrap'>Connecting to familysearch</h1>
-    }
-    if (!this.state.user) {
-      return <h1 className='LoadingWrap LoadingWrap-login'>Please login to familysearch <a href="https://familysearch.org" target="_blank">here</a></h1>
-    }
-    return <LeadsPage
-      user={this.state.user}
-      searcher={this.state.searcher}/>
-  }
 })
 
-React.render(<LoginWrapper/>, document.body)
+flux.connect(proxy).then(() => {
+  React.render(<FluxComponent flux={flux}>
+    <LoginWrapper/>
+  </FluxComponent>, document.body)
+}).catch(error => {
+  console.error(error)
+  alert('failed to start up')
+})
+
 
