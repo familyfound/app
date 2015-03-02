@@ -1,7 +1,8 @@
 
 import async from 'async'
+import EventEmitter from 'eventemitter3'
 
-export default class Searcher {
+export default class Searcher extends EventEmitter {
   constructor(config) {
     this.queue = async.priorityQueue(this.fullProcess.bind(this), config.num || 10)
     this.gens = {}

@@ -13,10 +13,6 @@ export default React.createClass({
     }
   },
 
-  componentWillMount() {
-    this.props.searcher.tick = this._onUpdate
-  },
-
   _onUpdate(display, gen, pid) {
     this.setState({
       current: {display, gen, pid}
@@ -24,14 +20,16 @@ export default React.createClass({
   },
 
   _onStart() {
-    this.props.searcher.start(this.props.user.personId)
-    this.setState({started: true})
+    this.props.onStart(this.props.user.personId)
+    // this.props.searcher.start(this.props.user.personId)
+    // this.setState({started: true})
   },
 
   _searchMore() {
-    this.props.searcher.config.maxStrong += 5
-    this.props.searcher.queue.resume()
-    this.setState({more: true})
+    this.props.onExtend()
+    // this.props.searcher.config.maxStrong += 5
+    // this.props.searcher.queue.resume()
+    // this.setState({more: true})
   },
 
   render() {
@@ -43,7 +41,7 @@ export default React.createClass({
         Hello {this.props.user.displayName}
       </div>
     </div>
-    if (!this.props.searcher.started) {
+    if (this.props.status === 'unstarted') {
       return <div className='App'>
         {header}
         <div className='App_body'>
@@ -56,17 +54,15 @@ export default React.createClass({
     return <div className='App'>
       {header}
       <div className='App_body'>
-        {localStorage.SHOW_FAN ? <Fan root={this.props.user.personId}
-            relationships={this.props.searcher.relationships}/> : null}
-        <div className={classnames('App_status', this.props.searcher.queue.paused ? 'App_status-paused' : '')}>
-          {(false || !this.props.searcher.queue.paused) ?
-            <Body processed={this.props.searcher.processed}
-              current={this.state.current}/> :
+        {/*{localStorage.SHOW_FAN ? <Fan root={this.props.user.personId}
+              relationships={this.props.searcher.relationships}/> : null}*/}
+        <div className={classnames('App_status', this.props.status === 'paused' ? 'App_status-paused' : '')}>
+          {this.props.status === 'running' ?
+            <Body current={this.props.current}/> :
             <button className='App_searchmore' onClick={this._searchMore}>Find me 5 more!</button>}
         </div>
-        <Leads searcher={this.props.searcher}/>
+        <Leads leads={this.props.leads}/>
       </div>
-      <NotesPage/>
     </div>
   }
 })
@@ -76,7 +72,7 @@ let Body = React.createClass({
     let display = this.props.current ? this.props.current.display : null
     return <div className='SearchProgress'>
       {/*<h3>Finding interesting things for you!</h3>*/}
-      <div>Processed: {this.props.processed}</div>
+      <div>Processed: {this.props.current ? this.props.current.num : 0}</div>
       {this.props.current &&
       <div>
         {display.name} <em>{display.lifespan}</em>

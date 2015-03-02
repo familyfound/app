@@ -1,8 +1,10 @@
 
 import React from 'react/addons'
 
+import NotesPage from './pages/notes'
+import FluxComponent from '../flux/flux-component'
 import LeadsPage from './pages/leads'
-import GenSearcher from './app/gen-searcher'
+// import GenSearcher from './app/gen-searcher'
 
 import {getUser} from './app/api'
 
@@ -12,7 +14,6 @@ export default React.createClass({
   getInitialState() {
     return {
       loading: true,
-      searcher: null,
       user: null,
     }
   },
@@ -35,6 +36,9 @@ export default React.createClass({
         return this._onInvalidLogin()
       }
 
+      this.props.onGotToken(token, user.personId)
+
+      /*
       var searcher = window.searcher = new GenSearcher({
         api: API,
         token: token,
@@ -42,13 +46,14 @@ export default React.createClass({
         maxBack: 5,
         maxDown: 2,
       })
+      */
 
-      this.setState({user, searcher, loading: false})
+      this.setState({user, loading: false})
     })
   },
 
   _onInvalidLogin() {
-    this.setState({user: null, searcher: null, token: false, loading: false})
+    this.setState({user: null, token: false, loading: false})
   },
 
   render() {
@@ -61,9 +66,24 @@ export default React.createClass({
     if (!this.state.user) {
       return <h1 className='LoadingWrap LoadingWrap-login'>Please login to familysearch <a href="https://familysearch.org" target="_blank">here</a></h1>
     }
-    return <LeadsPage
-      user={this.state.user}
-      searcher={this.state.searcher}/>
+    //return <LeadsPage
+        //user={this.state.user}/>
+    return <div>
+    <FluxComponent stateFromStores={{
+      search: {
+        status: 'status',
+        current: 'current',
+      },
+      leads: true,
+    }} actions={{
+      onStart: 'search.start',
+      onExtend:'search.extend',
+    }}>
+      <LeadsPage
+        user={this.state.user}/>
+    </FluxComponent>
+    <NotesPage/>
+    </div>
   }
 })
 

@@ -28,15 +28,6 @@ export default function run(div) {
       },
     })
 
-    /*
-    flux._emit = function () {
-      console.log('want to emit', arguments)
-      setTimeout(() => {
-        Flux.prototype._emit.apply(this, arguments)
-      }, 1000)
-    }
-    */
-
     React.unmountComponentAtNode(div)
     React.render(<FluxComponent flux={flux}><Assistant/></FluxComponent>, div)
 

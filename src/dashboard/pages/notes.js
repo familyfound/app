@@ -5,32 +5,36 @@ import {PENDING} from '../../flux'
 
 export default React.createClass({
   render() {
-    return <FluxComponent stateFromStores={{notes: 'value'}}>
+    console.log('out render')
+    return <FluxComponent stateFromStores={{notes:true}}>
       <NotesList/>
     </FluxComponent>
   }
 })
 
 function makeGoodTitle(title) {
-  if (!title.trim()) return '[no page title]'
+  if (!title || !title.trim()) return '[no page title]'
   return title.split('|')[0].trim() || '[no page title]'
 }
 
 let NotesList = React.createClass({
   render() {
+    console.log('in render')
     if (!this.props.notes || this.props.notes === PENDING) {
       return <div className='NotesList'>
         Loading...
       </div>
     }
     return <div className='NotesList'>
-      {this.props.notes.map(note => <div className='NotesList_note'>
+      {this.props.notes.map(note => <div key={note.get('id')} className='NotesList_note'>
+        <span className='NotesList_date'>{note.get('date').toLocaleString()}</span>
         <a title="Go to this page"
+           className='NotesList_link'
+           target="_blank"
            href={note.get('url')}>
           {makeGoodTitle(note.get('pageTitle'))}
         </a>
-        {note.get('text')}
-        {note.get('date').toLocaleString()}
+        <span className='NotesList_text'>{note.get('text')}</span>
       </div>).toJS()}
     </div>
   }
