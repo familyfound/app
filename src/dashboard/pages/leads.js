@@ -21,15 +21,10 @@ export default React.createClass({
 
   _onStart() {
     this.props.onStart(this.props.user.personId)
-    // this.props.searcher.start(this.props.user.personId)
-    // this.setState({started: true})
   },
 
   _searchMore() {
     this.props.onExtend()
-    // this.props.searcher.config.maxStrong += 5
-    // this.props.searcher.queue.resume()
-    // this.setState({more: true})
   },
 
   render() {

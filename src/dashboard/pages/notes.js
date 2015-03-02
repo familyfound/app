@@ -5,7 +5,6 @@ import {PENDING} from '../../flux'
 
 export default React.createClass({
   render() {
-    console.log('out render')
     return <FluxComponent stateFromStores={{notes:true}}>
       <NotesList/>
     </FluxComponent>
@@ -19,7 +18,6 @@ function makeGoodTitle(title) {
 
 let NotesList = React.createClass({
   render() {
-    console.log('in render')
     if (!this.props.notes || this.props.notes === PENDING) {
       return <div className='NotesList'>
         Loading...

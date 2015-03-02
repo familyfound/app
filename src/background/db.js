@@ -6,10 +6,18 @@ export default () => {
 
   db.version(1).stores({
     pageEvents: '++id, tabid, url, title, prevtabid, prevurl, type',
-    editEvents: '++id, url, event, date', // tabid, text (note), metadata
-    leads: '++id, pedig, type, personId, date, isHard, *tags', // pedig is a truncated pedigree
+
+    // tabid, text (note), metadata
+    editEvents: '++id, url, event, date',
+
+    // pedig is a truncated pedigree
+    leads: '++id, pedig, type, personId, date, isHard, *tags',
+
     notes: '++id, url, date', // text
-    tasks: '++id, personId, url, date, isHard, *tags', // either url or personid will be populated. e.g. can have a task for a source page or sth.
+
+    // either url or personid will be populated.
+    // e.g. can have a task for a source page or sth.
+    tasks: '++id, personId, url, date, isHard, *tags',
   })
   db.open()
   return db

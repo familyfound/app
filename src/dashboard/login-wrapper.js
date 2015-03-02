@@ -69,20 +69,20 @@ export default React.createClass({
     //return <LeadsPage
         //user={this.state.user}/>
     return <div>
-    <FluxComponent stateFromStores={{
-      search: {
-        status: 'status',
-        current: 'current',
-      },
-      leads: true,
-    }} actions={{
-      onStart: 'search.start',
-      onExtend:'search.extend',
-    }}>
-      <LeadsPage
-        user={this.state.user}/>
-    </FluxComponent>
-    <NotesPage/>
+      <FluxComponent stateFromStores={{
+        search: {
+          status: 'status',
+          current: 'current',
+        },
+        leads: true,
+      }} actions={{
+        onStart: 'search.start',
+        onExtend:'search.extend',
+      }}>
+        <LeadsPage
+          user={this.state.user}/>
+      </FluxComponent>
+      <NotesPage/>
     </div>
   }
 })

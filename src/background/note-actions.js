@@ -13,30 +13,6 @@ export default class NoteActions extends ActionCreators {
     this.addAsyncAction('created')
     this.addAsyncAction('updated')
     this.addAsyncAction('removed')
-
-    /*
-    super({
-      load() {
-      },
-      update(id, data) {
-        data.updated = new Date()
-        return db.transaction('rw', table, () => {
-          return table.update(id, data).then(numUpdated => {
-            if (numUpdated === 0) throw new Error('item was not found')
-            return table.get(id)
-          })
-        })
-      },
-      remove(id) {
-        return table.delete(id).then(() => id)
-      },
-      create(data) {
-        data.url = url || 'dashboard'
-        data.date = new Date()
-        return table.add(data).then(id => table.get(id))
-      }
-    })
-    */
   }
 
   load() {
@@ -53,12 +29,14 @@ export default class NoteActions extends ActionCreators {
       })
     })
     this.emit('updated', [id, data], promise)
+    // mirror up to global `notes` action gropu
     this.baseEmit('notes', 'updated', [id, data], promise)
   }
 
   remove(id) {
     let promise = this.table.delete(id).then(() => id)
     this.emit('removed', [id], promise)
+    // mirror up to global `notes` action gropu
     this.baseEmit('notes', 'removed', [id], promise)
   }
 
@@ -67,6 +45,7 @@ export default class NoteActions extends ActionCreators {
     data.date = new Date()
     let promise = this.table.add(data).then(id => this.table.get(id))
     this.emit('created', [data], promise)
+    // mirror up to global `notes` action gropu
     this.baseEmit('notes', 'created', [data], promise)
   }
 }

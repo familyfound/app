@@ -7,8 +7,6 @@ import {cachedRels} from './api'
 export default class GenSearcher extends Searcher {
   constructor (config) {
     Searcher.call(this, config)
-    // this.persons = {}
-    // this.relationships = {}
     this.flags = {}
     this.strong = []
   }
@@ -33,7 +31,6 @@ export default class GenSearcher extends Searcher {
     }
 
     this.emit('relationships', pid, relationships)
-    // this.relationships[pid] = relationships
     this.flags[pid] = flags
 
     var strong = getStrong(flags)
