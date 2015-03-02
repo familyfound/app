@@ -65,7 +65,6 @@ export default class GenSearcher extends Searcher {
     // TODO think about: should I add spouse?
 
     this.emit('current', persons[pid].display, gen, pid, this.processed)
-    // this.tick(this.persons[pid].display, gen, pid)
     done()
   }
 

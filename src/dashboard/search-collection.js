@@ -12,6 +12,11 @@ export default class SearchStore extends Store {
 }
 
 SearchStore.handlers = {
+  user: {
+    gotUser(user) {
+      this.creators.search.setup(user.token, user.personId)
+    },
+  },
   search: {
     setup(max) {
       this.max = max

@@ -16,7 +16,8 @@
     "immutable.js": "^1.1.2",
     "jspm": "^0.14.0",
     "localforage": "^1.2.2",
-    "object-assign": "^2.0.0"
+    "object-assign": "^2.0.0",
+    "react-router": "^0.12.4"
   },
   "devDependencies": {
     "babel": "^4.6.0",

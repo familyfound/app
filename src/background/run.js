@@ -42,6 +42,7 @@ window.chrome.runtime.onConnect.addListener(port => {
     })
     return
   }
+
   // this is a familysearch page
   let url = normalizeUrl(port.sender.url)
   flux.addClient({

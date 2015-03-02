@@ -19,6 +19,24 @@ body {
 }
 
 .App {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.App_body {
+  flex: 1;
+  overflow: auto;
+  padding: 10px;
+}
+
+.LeadsPage {
+  max-width: 1000px;
+  margin: 10px auto;
 }
 
 .App-noconnect {
@@ -34,22 +52,43 @@ body {
   padding: 100px 0;
 }
 
-.App_header {
+.Header {
   width: 100%;
   box-sizing: border-box;
-  padding: 10px 30px;
+  padding: 5px 30px;
   box-shadow: 0 3px 5px #ccc;
   display: flex;
 }
 
-.App_brand {
-  flex: 1;
+.Header_brand, .Header_greeting {
+  padding: 10px;
 }
 
-.App_body {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 10px 0;
+.Header_links {
+  flex: 1;
+  text-align: center;
+
+  a {
+    padding: 10px;
+    border-radius: 3px;
+    display: inline-block;
+    font-weight: bold;
+    cursor: pointer;
+
+    text-decoration: none;
+    color: #555;
+    margin: 0 0px;
+    transition: box-shadow .3s ease;
+
+    &:hover:not(.active) {
+      box-shadow: 0 2px 5px #aaa;
+    }
+    &.active {
+      background-color: rgb(105, 105, 255);
+      color: white;
+      cursor: default;
+    }
+  }
 }
 
 .App_start {

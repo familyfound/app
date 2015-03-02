@@ -1,22 +1,17 @@
 
 import React from 'react'
 
+import {PENDING} from '../../flux'
+
 import Leads from '../app/leads'
 import Fan from '../app/fan'
 import classnames from 'classnames'
-import NotesPage from './notes'
 
 export default React.createClass({
   getInitialState() {
     return {
       current: null,
     }
-  },
-
-  _onUpdate(display, gen, pid) {
-    this.setState({
-      current: {display, gen, pid}
-    })
   },
 
   _onStart() {
@@ -28,36 +23,35 @@ export default React.createClass({
   },
 
   render() {
-    var header = <div className='App_header'>
-      <div className='App_brand'>
-        FamilyFound
+    if (!window.chrome || !window.chrome.runtime) {
+      return <h1 className='LoadingWrap'>This app requires a chrome extensions</h1>
+    }
+    if (this.props.loggedout) {
+      return <h1 className='LoadingWrap LoadingWrap-login'>
+        Please login to familysearch <a href="https://familysearch.org" target="_blank">here</a>
+      </h1>
+    }
+    if (!this.props.value || this.props.value === PENDING) {
+      return <div className='LeadsPage'>
+        Connecting to FamilySearch
       </div>
-      <div className='App_greeting'>
-        Hello {this.props.user.displayName}
-      </div>
-    </div>
+    }
     if (this.props.status === 'unstarted') {
-      return <div className='App'>
-        {header}
-        <div className='App_body'>
+      return <div className='LeadsPage'>
           <button className='App_start' onClick={this._onStart}>
             Start searching!
           </button>
         </div>
-      </div>
     }
-    return <div className='App'>
-      {header}
-      <div className='App_body'>
-        {/*{localStorage.SHOW_FAN ? <Fan root={this.props.user.personId}
-              relationships={this.props.searcher.relationships}/> : null}*/}
-        <div className={classnames('App_status', this.props.status === 'paused' ? 'App_status-paused' : '')}>
-          {this.props.status === 'running' ?
-            <Body current={this.props.current}/> :
-            <button className='App_searchmore' onClick={this._searchMore}>Find me 5 more!</button>}
-        </div>
-        <Leads leads={this.props.leads}/>
+    return <div className='LeadsPage'>
+      {/*{localStorage.SHOW_FAN ? <Fan root={this.props.user.personId}
+            relationships={this.props.searcher.relationships}/> : null}*/}
+      <div className={classnames('App_status', this.props.status === 'paused' ? 'App_status-paused' : '')}>
+        {this.props.status === 'running' ?
+          <Body current={this.props.current}/> :
+          <button className='App_searchmore' onClick={this._searchMore}>Find me 5 more!</button>}
       </div>
+      <Leads leads={this.props.leads}/>
     </div>
   }
 })
