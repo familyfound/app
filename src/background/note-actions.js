@@ -16,7 +16,9 @@ export default class NoteActions extends ActionCreators {
   }
 
   load() {
-    let promise = this.url ? this.table.where('url').equalsIgnoreCase(this.url).toArray() : this.table.toArray()
+    let coll = this.table
+    coll = this.url ? coll.where('url').equalsIgnoreCase(this.url) : coll
+    let promise = coll.reverse().toArray()
     this.emit('loaded', [], promise)
   }
 

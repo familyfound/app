@@ -2,13 +2,15 @@
 import CollectionActions from '../flux/collection-actions'
 
 export default class DexieActions extends CollectionActions {
-  constructor(db, tableName) {
+  constructor(db, tableName, reverseSort) {
     this.db = db
     let table = this.table = db[tableName]
 
     super({
       load() {
-        return table.toArray()
+        let coll = table//.orderBy('date')
+        if (reverseSort) coll = coll.reverse()
+        return coll.toArray()
       },
       update(id, data) {
         return db.transaction('rw', table, () => {
@@ -22,6 +24,7 @@ export default class DexieActions extends CollectionActions {
         return table.delete(id).then(() => id)
       },
       create(data) {
+        data.date = new Date()
         return table.add(data).then(id => table.get(id))
       }
     })

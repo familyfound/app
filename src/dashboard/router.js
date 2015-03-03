@@ -5,7 +5,7 @@ import FluxComponent from '../flux/flux-component'
 
 let {DefaultRoute, Link, RouteHandler, Route} = Router
 
-import LoginWrapper from './login-wrapper'
+import LeadsPage from './pages/leads'
 import LogPage from './pages/log'
 import ExplorePage from './pages/explore'
 import SettingsPage from './pages/settings'
@@ -36,24 +36,14 @@ let Header = React.createClass({
         <Link to="settings">Settings</Link>
       </div>
       <div className='Header_greeting'>
-        {this.props.user ? 'Hello ' + this.props.user.displayName : null}
+        {(this.props.user && this.props.user.displayName) ? 'Hello ' + this.props.user.displayName : null}
       </div>
     </header>
   }
 })
 
-let LeadsPageWrap = React.createClass({
-  render() {
-    return <FluxComponent actions={{
-      onGotToken: 'search.setup',
-    }}>
-      <LoginWrapper/>
-    </FluxComponent>
-  }
-})
-
 let routes = <Route handler={App} path="/">
-  <DefaultRoute name="leads" handler={LeadsPageWrap}/>
+  <DefaultRoute name="leads" handler={LeadsPage}/>
   <Route name="log" handler={LogPage}/>
   <Route name="explore" handler={ExplorePage}/>
   <Route name="settings" handler={SettingsPage}/>

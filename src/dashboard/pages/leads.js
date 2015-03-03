@@ -2,6 +2,7 @@
 import React from 'react'
 
 import {PENDING} from '../../flux'
+import FluxComponent from '../../flux/flux-component'
 
 import Leads from '../app/leads'
 import Fan from '../app/fan'
@@ -23,16 +24,42 @@ export default React.createClass({
   },
 
   render() {
+    /*{localStorage.SHOW_FAN ? <Fan root={this.props.user.personId}
+          relationships={this.props.searcher.relationships}/> : null}*/
+    return <div className='LeadsPage'>
+      <FluxComponent stateFromStores={{
+        user: {
+          value: 'value',
+          loggedout: 'loggedout',
+        },
+        search: {
+          status: 'status',
+          current: 'current',
+        },
+      }} actions={{
+        onStart: 'search.start',
+        onExtend:'search.extend',
+      }}><LeadFinder/></FluxComponent>
+
+      <FluxComponent stateFromStores={{leads: true}}>
+        <Leads/>
+      </FluxComponent>
+    </div>
+  }
+})
+
+let LeadFinder = React.createClass({
+  render() {
     if (!window.chrome || !window.chrome.runtime) {
       return <h1 className='LoadingWrap'>This app requires a chrome extensions</h1>
     }
     if (this.props.loggedout) {
       return <h1 className='LoadingWrap LoadingWrap-login'>
-        Please login to familysearch <a href="https://familysearch.org" target="_blank">here</a>
+        Please login to familysearch <a href="https://familysearch.org" target="_blank">here</a> to find leads.
       </h1>
     }
     if (!this.props.value || this.props.value === PENDING) {
-      return <div className='LeadsPage'>
+      return <div className='LoadingWrap'>
         Connecting to FamilySearch
       </div>
     }
@@ -43,17 +70,12 @@ export default React.createClass({
           </button>
         </div>
     }
-    return <div className='LeadsPage'>
-      {/*{localStorage.SHOW_FAN ? <Fan root={this.props.user.personId}
-            relationships={this.props.searcher.relationships}/> : null}*/}
-      <div className={classnames('App_status', this.props.status === 'paused' ? 'App_status-paused' : '')}>
-        {this.props.status === 'running' ?
-          <Body current={this.props.current}/> :
-          <button className='App_searchmore' onClick={this._searchMore}>Find me 5 more!</button>}
-      </div>
-      <Leads leads={this.props.leads}/>
+    return <div className={classnames('App_status', this.props.status === 'paused' ? 'App_status-paused' : '')}>
+      {this.props.status === 'running' ?
+        <Body current={this.props.current}/> :
+        <button className='App_searchmore' onClick={this._searchMore}>Find me 5 more!</button>}
     </div>
-  }
+  },
 })
 
 let Body = React.createClass({

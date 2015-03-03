@@ -32,7 +32,7 @@ window.chrome.runtime.onConnect.addListener(port => {
         },
         tasks: {
           localAlias: 'tasks',
-          creator: new DexieActions(db, 'tasks'),
+          creator: new DexieActions(db, 'tasks', true),
         },
         notes: {
           localAlias: 'notes',

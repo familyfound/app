@@ -16,7 +16,7 @@ function getGenPos(num, sweep, dist) {
   }
 }
 
-function pie(x, y, t1, r, one, two) {
+function pie(x, y, t1, r) {
 	var x1 = Math.cos(0) * r + x
     , y1 = Math.sin(0) * r + y
     , x2 = Math.cos(t1) * r + x
