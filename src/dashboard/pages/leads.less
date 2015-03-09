@@ -20,3 +20,122 @@
   border-radius: 7px;
 }
 
+.Lead_finished {
+  width: 400px;
+
+  textarea {
+    width: 100%;
+    display: block;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+.StrongLead_top {
+  a {
+    float: right;
+  }
+}
+
+.StrongLead {
+  &_panes {
+    display: flex;
+
+    > div {
+      flex: 1;
+    }
+  }
+
+  &_note {
+    border-color: transparent;
+    display: block;
+    width: 100%;
+    min-height: 80px;
+
+    &:focus {
+      border-color: #ccc;
+    }
+  }
+
+  &_reasons {
+    margin-top: 5px;
+  }
+
+  &_reason {
+    margin-right: 4px;
+    display: inline-block;
+    margin-top: 3px;
+    padding: 3px 5px;
+    background-color: orange;
+    color: white;
+    border-radius: 4px;
+
+    &-no-children {
+      background-color: red;
+    }
+    &-few {
+      background-color: orange;
+    }
+    &-no-father, &-no-mother {
+      background-color: green;
+    }
+    &-no-spouse {
+      background-color: blue;
+    }
+  }
+
+}
+
+.Leads_filter {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+
+  &_type {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #777;
+
+    &-active {
+      color: white;
+      background-color: #55f;
+    }
+  }
+}
+
+.Leads_list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    width: 500px;
+}
+
+.StrongLead {
+    margin: 10px 0;
+    box-shadow: 0 2px 6px #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.StrongLead_name {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.StrongLead_lifespan {
+    margin: 0 10px;
+    color: #555;
+}
+
+.StrongLead_left {
+    padding-top: 5px;
+}
+
+.StrongLead_life {
+    margin-top: 6px;
+}

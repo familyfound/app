@@ -41,7 +41,7 @@ export default React.createClass({
         onExtend:'search.extend',
       }}><LeadFinder/></FluxComponent>
 
-      <FluxComponent stateFromStores={{leads: true}}>
+      <FluxComponent stateFromStores={{leads: true}} actions={{onUpdate: 'leads.update'}}>
         <Leads/>
       </FluxComponent>
     </div>

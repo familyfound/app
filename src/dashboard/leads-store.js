@@ -35,6 +35,19 @@ LeadsStore.handlers = {
       console.log('failed to get leads...', error)
     },
 
+    updated__pending(args, aid) {
+      let [id, data] = args
+      let ix = this.value.findIndex(ld => ld.get('id') === data.id)
+      this.value = this.value.mergeIn([ix], data)
+      this.changed('value')
+    },
+
+    updated(data) {
+      let ix = this.value.findIndex(ld => ld.get('id') === data.id)
+      this.value = this.value.mergeIn([ix], data)
+      this.changed('value')
+    },
+
     created__pending(args) {
       this.value = this.value.push(Map(args[0]))
       this.changed()
@@ -65,6 +78,13 @@ LeadsStore.getters = {
       this.creators.leads.load()
     }
     return this.value
+  },
+  byId(id) {
+    return this.value.find(ld => ld.get('id') === id)
   }
+}
+
+LeadsStore.events = {
+  byId(id) {return  'id:' + id}
 }
 
