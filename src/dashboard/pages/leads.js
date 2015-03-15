@@ -15,14 +15,6 @@ export default React.createClass({
     }
   },
 
-  _onStart() {
-    this.props.onStart(this.props.user.personId)
-  },
-
-  _searchMore() {
-    this.props.onExtend()
-  },
-
   render() {
     /*{localStorage.SHOW_FAN ? <Fan root={this.props.user.personId}
           relationships={this.props.searcher.relationships}/> : null}*/
@@ -65,7 +57,7 @@ let LeadFinder = React.createClass({
     }
     if (this.props.status === 'unstarted') {
       return <div className='LeadsPage'>
-          <button className='App_start' onClick={this._onStart}>
+          <button className='App_start' onClick={this.props.onStart}>
             Start searching!
           </button>
         </div>
@@ -73,7 +65,7 @@ let LeadFinder = React.createClass({
     return <div className={classnames('App_status', this.props.status === 'paused' ? 'App_status-paused' : '')}>
       {this.props.status === 'running' ?
         <Body current={this.props.current}/> :
-        <button className='App_searchmore' onClick={this._searchMore}>Find me 5 more!</button>}
+        <button className='App_searchmore' onClick={this.props.onExtend}>Find me 5 more!</button>}
     </div>
   },
 })
