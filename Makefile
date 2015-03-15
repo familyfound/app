@@ -16,6 +16,9 @@ inject-js:
 inject-css:
 	lessc src/inject/run.less > build/inject.css
 
+zip:
+	rsync icon* build dashboard manifest.json -r build-chrome
+	zip build-chrome.zip -r ./build-chrome
 
 
 dashboard: dashboard-js dashboard-css
