@@ -1,7 +1,7 @@
 {
   "name": "FamilyFound",
   "description": "Find research opportunities on FamilySearch",
-  "version": "0.1",
+  "version": "0.2",
   "manifest_version": 2,
   "options_page": "dashboard/index.html",
   "permissions": [

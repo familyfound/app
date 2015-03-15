@@ -39,8 +39,8 @@ function getFlags(person, relationships) {
 var strongCriteria = [
   ['!died before 16', '!living', '!fewer than 110 years', 'no spouse'],
   ['!died before 16', '!living', '!fewer than 110 years', 'invalid spouse'],
-  ['!died before 16', '!living', '!fewer than 110 years', 'few children'],
-  ['!died before 16', '!living', '!fewer than 110 years', 'no children'],
+  ['!died before 16', '!living', '!fewer than 130 years', 'few children'],
+  ['!died before 16', '!living', '!fewer than 130 years', 'no children'],
   'no father',
   'no mother',
   'invalid father',
@@ -74,6 +74,15 @@ var flagCheckers = {
   'invalid father': function (person, relationships) {
     // determine validity
     return false
+  },
+  'fewer than 130 years': function (person, relationships) {
+    if (!person.display.birthDate) return false // TODO fix
+    var parts = person.display.lifespan.split('-')
+    if (parts.length !== 2) return false
+    var born = parseInt(parts[0], 10)
+      , died = parseInt(parts[1], 10)
+      , age = died - born
+    return new Date().getFullYear() - born < 130
   },
   'fewer than 110 years': function (person, relationships) {
     if (!person.display.birthDate) return false // TODO fix
