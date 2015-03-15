@@ -40,7 +40,7 @@ var Leads = React.createClass({
       </ul>
       <ul className='Leads_list'>
         {leads.map(strong =>
-          <li><StrongLead
+          <li key={strong.personId}><StrongLead
             pid={strong.personId}
             onUpdate={this._onUpdate.bind(null, strong.id)}
             display={strong.display}

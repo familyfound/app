@@ -73,7 +73,9 @@ let StrongLead = React.createClass({
   },
 
   _commitNote() {
-    if (this.state.note.trim() === this.props.note.trim()) return
+    let news = this.state.note || ''
+      , olds = this.props.note || ''
+    if (news.trim() === olds.trim()) return
     this.props.onUpdate({note: this.state.note})
   },
 
