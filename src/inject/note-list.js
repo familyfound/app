@@ -7,6 +7,8 @@ import NoteEditor from './note-editor'
 import MorphComp from './morph-comp'
 import MorphMixin from './morpher'
 
+import renderText from '../shared/render-text'
+
 export default React.createClass({
   propTypes: {
     onRemove: PT.func.isRequired,
@@ -32,6 +34,7 @@ export default React.createClass({
   },
 
   _startEditing(id, e) {
+    if (e.target.nodeName === 'A') return
     if (e) e.preventDefault()
     this.setState({editing: id})
   },
@@ -58,9 +61,7 @@ export default React.createClass({
         </li>,
         note => <li onClick={this._startEditing.bind(null, note.get('id'))} key={note.get('id')} className='NoteList_note'>
           <MorphComp>
-          <div className='NoteList_text'>
-            {note.get('text')}
-          </div>
+          <div className='NoteList_text' dangerouslySetInnerHTML={{__html: renderText(note.get('text'))}}/>
           <div className='NoteList_date'>
             {note.get('date') && note.get('date').toLocaleString()}
           </div>

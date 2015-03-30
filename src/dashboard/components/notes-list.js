@@ -2,6 +2,7 @@
 import React from 'react'
 import FluxComponent from '../../flux/flux-component'
 import {PENDING} from '../../flux'
+import renderText from '../../shared/render-text'
 
 function makeGoodTitle(title) {
   if (!title || !title.trim()) return '[no page title]'
@@ -25,7 +26,7 @@ export default React.createClass({
            href={note.get('url')}>
           {makeGoodTitle(note.get('pageTitle'))}
         </a>
-        <span className='NotesList_text'>{note.get('text')}</span>
+        <span className='NotesList_text' dangerouslySetInnerHTML={{__html: renderText(note.get('text'))}}/>
       </div>).toJS()}
     </div>
   }

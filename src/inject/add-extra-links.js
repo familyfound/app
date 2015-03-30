@@ -100,6 +100,25 @@ function ancestryUrl(config) {
   return base + '&' + argString
 }
 
+/*
+function moreAncestryUrl(config) {
+  var base = 'http://search.ancestry.com/cgi-bin/sse.dll'
+  let args = {
+    rank=1,
+    new=1,
+    gsfn=Matilda%20Christine,
+    gsln=Folkman,
+    msbdy=1861,
+    msbpn__ftp=Plain%20City,%20Weber,%20UT,
+    msfng0=Jens%20Peter,
+    msfns0=Folkman,
+    msmng0=Matilda%20Kristina,
+    msmns0=Funk,
+  }
+}
+*/
+
+
 /** helpers **/
 
 function getText(body, selector) {
