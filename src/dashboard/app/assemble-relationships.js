@@ -7,13 +7,13 @@ export default function assembleRelationships(pid, relationships, childAndParent
         map[person.id] = person
         return map
       }, {})
-  relationships.forEach(rel => {
+  ;(relationships || []).forEach(rel => {
     if (rel.type !== "http://gedcomx.org/Couple") return
     var spouse = rel.person1.resourceId === pid ? rel.person2.resourceId : rel.person1.resourceId
     famMap[spouse] = {spouse: pMap[spouse], children: []}
     families.push(famMap[spouse])
   })
-  childAndParentsRelationships.forEach(rel => {
+  ;(childAndParentsRelationships || []).forEach(rel => {
     if (rel.child.resourceId === pid) {
       return parents.push({
         father: rel.father && pMap[rel.father.resourceId],
