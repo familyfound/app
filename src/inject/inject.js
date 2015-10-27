@@ -19,7 +19,8 @@ function onLoad() {
   if (cleanApp) cleanApp()
   cleanExtra = null
 
-  cleanApp = run(div)
+  // TODO add back the note-taking stuff, but maybe through a `pageAction`
+  cleanApp = null // run(div)
 
   if (timeout) clearTimeout(timeout)
   timeout = setTimeout(() => {

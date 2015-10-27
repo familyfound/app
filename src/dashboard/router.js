@@ -29,12 +29,14 @@ let Header = React.createClass({
       <div className='Header_brand'>
         FamilyFound
       </div>
+      {/* TODO are any of these tabs useful right now?
       <div className='Header_links'>
         <Link to="leads">Find Leads</Link>
         <Link to="log">Research Log</Link>
         <Link to="explore">Explore your Tree</Link>
         <Link to="settings">Settings</Link>
       </div>
+      */}
       <div className='Header_greeting'>
         {(this.props.user && this.props.user.displayName) ? 'Hello ' + this.props.user.displayName : null}
       </div>

@@ -17,7 +17,7 @@
   "content_scripts": [{
     "matches": ["https://familysearch.org/tree/*", "https://familysearch.org/pal:/*"],
     "css": ["build/inject.css"],
-    "js": ["build/lib.js", "build/inject.js"]
+    "js": ["build/inject.js"]
   }, {
     "matches": ["https://familysearch.org/"],
     "css": ["src/link/link.css"],

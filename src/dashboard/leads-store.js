@@ -37,7 +37,7 @@ LeadsStore.handlers = {
 
     updated__pending(args, aid) {
       let [id, data] = args
-      let ix = this.value.findIndex(ld => ld.get('id') === data.id)
+      let ix = this.value.findIndex(ld => ld.get('id') === id)
       this.value = this.value.mergeIn([ix], data)
       this.changed('value')
     },

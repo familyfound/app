@@ -1,6 +1,8 @@
 
 import CollectionActions from '../flux/collection-actions'
 
+const gen = () => Math.random().toString(16).slice(2)
+
 export default class DexieActions extends CollectionActions {
   constructor(db, tableName, reverseSort) {
     this.db = db
@@ -13,6 +15,7 @@ export default class DexieActions extends CollectionActions {
         return coll.toArray()
       },
       update(id, data) {
+        console.log('Updating', id, data);
         return db.transaction('rw', table, () => {
           return table.update(id, data).then(numUpdated => {
             if (numUpdated === 0) throw new Error('item was not found')
@@ -25,7 +28,8 @@ export default class DexieActions extends CollectionActions {
       },
       create(data) {
         data.date = new Date()
-        return table.add(data).then(id => table.get(id))
+        data.id = gen()
+        return table.add(data).then(() => table.get(data.id))
       }
     })
   }

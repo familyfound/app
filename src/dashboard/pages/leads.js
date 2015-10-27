@@ -45,16 +45,19 @@ let LeadFinder = React.createClass({
     if (!window.chrome || !window.chrome.runtime) {
       return <h1 className='LoadingWrap'>This app requires a chrome extensions</h1>
     }
+
     if (this.props.loggedout) {
       return <h1 className='LoadingWrap LoadingWrap-login'>
         Please login to familysearch <a href="https://familysearch.org" target="_blank">here</a> to find leads.
       </h1>
     }
+
     if (!this.props.value || this.props.value === PENDING) {
       return <div className='LoadingWrap'>
         Connecting to FamilySearch
       </div>
     }
+
     if (this.props.status === 'unstarted') {
       return <div className='LeadsPage'>
           <button className='App_start' onClick={this.props.onStart}>
@@ -62,6 +65,7 @@ let LeadFinder = React.createClass({
           </button>
         </div>
     }
+
     return <div className={classnames('App_status', this.props.status === 'paused' ? 'App_status-paused' : '')}>
       {this.props.status === 'running' ?
         <Body current={this.props.current}/> :

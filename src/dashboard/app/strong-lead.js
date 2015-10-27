@@ -16,8 +16,9 @@ let relationMap = {
   '2|1|Female': 'Aunt',
   '2|2|Male': 'Cousin',
   '2|2|Female': 'Cousin',
-
 }
+
+const arkUrl = pid => `https://familysearch.org/ark:/61903/4:1:${pid}?context=detail`;
 
 function stnd(num) {
   if (num > 10 && num < 20) return num + 'th'
@@ -80,11 +81,11 @@ let StrongLead = React.createClass({
   },
 
   _onFinished() {
-    this.props.onUpdate({isComplete: true})
+    this.props.onUpdate({isComplete: !this.props.finished, doLater: false})
   },
 
   _onLater() {
-    this.props.onUpdate({doLater: true})
+    this.props.onUpdate({doLater: !this.props.later, isComplete: false})
   },
 
   render: function () {
@@ -93,7 +94,7 @@ let StrongLead = React.createClass({
     if (isNaN(age)) age = ''
     return <div className='StrongLead'>
       <div className='StrongLead_top'>
-        <a href={"https://familysearch.org/tree/#view=ancestor&person=" + pid} target="_blank">View in FS</a>
+        <a href={arkUrl(pid)} target="_blank">View on FamilySearch</a>
         <span className='StrongLead_name'>{display.name}</span>
         <span className='StrongLead_lifespan'>{display.lifespan}</span>
         <span className='StrongLead_age'>{age}</span>
@@ -128,12 +129,14 @@ let StrongLead = React.createClass({
             onChange={e => this.setState({note: e.target.value})}
             onBlur={this._commitNote}
             placeholder="Write a note to yourself"/>
-          <button className='StrongLead_finished' onClick={this._onFinished}>
-            Finished
-          </button>
-          <button className='StrongLead_later' onClick={this._onLater}>
-            Do Later
-          </button>
+          <div className='StrongLead_buttons'>
+            {!this.props.finished && <button className='StrongLead_later' onClick={this._onLater}>
+              {this.props.later ? 'Work on now' : 'Do later'}
+            </button>}
+            <button className='StrongLead_finished' onClick={this._onFinished}>
+              {this.props.finished ? 'Work on more' : 'Mark Finished'}
+            </button>
+          </div>
         </div>
       </div>
     </div>

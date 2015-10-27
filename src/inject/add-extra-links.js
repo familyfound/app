@@ -18,6 +18,7 @@ function remove(nodes) {
 /** the actual extras **/
 
 var extras = {
+  /* Disable that b/c it's built-in now..although it's annoying
   ancestrySearcher: {
     after: '.tools.researchSection .search-records',
     requiredNodes: [
@@ -29,6 +30,7 @@ var extras = {
       return link('Ancestry Search', ancestryUrl(info), 'fs-icon-search')
     },
   },
+  */
 }
 
 function link(text, href, className) {

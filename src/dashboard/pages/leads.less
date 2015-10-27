@@ -52,10 +52,19 @@
     border-color: transparent;
     display: block;
     width: 100%;
+    max-width: 100%;
     min-height: 80px;
+    flex: 1;
+    box-sizing: border-box;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    font-size: 16px;
+    color: #555;
 
     &:focus {
       border-color: #ccc;
+      outline: none;
     }
   }
 
@@ -84,6 +93,32 @@
     &-no-spouse {
       background-color: blue;
     }
+  }
+
+  &_right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &_buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &_finished {
+    padding: 4px 12px;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-left: 10px;
+  }
+
+  &_later {
+    padding: 4px 12px;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
 
 }

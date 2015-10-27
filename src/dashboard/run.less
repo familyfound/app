@@ -57,11 +57,17 @@ body {
   box-sizing: border-box;
   padding: 5px 30px;
   box-shadow: 0 3px 5px #ccc;
+  flex-shrink: 0;
   display: flex;
+  justify-content: space-between;
 }
 
 .Header_brand, .Header_greeting {
   padding: 10px;
+}
+
+.Header_brand {
+  font-weight: bold;
 }
 
 .Header_links {
