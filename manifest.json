@@ -14,15 +14,6 @@
   "background": {
     "scripts": ["build/background.js"]
   },
-  "content_scripts": [{
-    "matches": ["https://familysearch.org/tree/*", "https://familysearch.org/pal:/*"],
-    "css": ["build/inject.css"],
-    "js": ["build/inject.js"]
-  }, {
-    "matches": ["https://familysearch.org/"],
-    "css": ["src/link/link.css"],
-    "js": ["src/link/link.js"]
-  }],
   "web_accessible_resources": [
     "build/inception.js",
     "dashboard/index.html"
