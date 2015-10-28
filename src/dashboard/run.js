@@ -37,4 +37,11 @@ flux.connect(proxy).then(() => {
   renderRouter(flux, document.body)
 })
 
+setInterval(() => {
+  if (flux.stores.user.token) {
+    flux.creators.user.check(flux.stores.user.token);
+  } else {
+    flux.creators.user.login();
+  }
+}, 5000);
 

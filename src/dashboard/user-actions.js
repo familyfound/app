@@ -4,7 +4,6 @@ import ActionCreators from '../flux/action-creators'
 var API = 'https://familysearch.org'
 import {getUser} from './app/api'
 
-
 export default class UserActions extends ActionCreators {
   constructor() {
     super()
@@ -20,6 +19,14 @@ export default class UserActions extends ActionCreators {
     }, (cookie) => {
       if (!cookie) return this.emit('logout')
       this.emit('login', cookie.value)
+    })
+  }
+
+  check(token) {
+    getUser(API, token, (err, user) => {
+      if (err) {
+        return this.emit('logout')
+      }
     })
   }
 

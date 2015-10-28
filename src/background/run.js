@@ -59,3 +59,36 @@ window.chrome.runtime.onConnect.addListener(port => {
 let tabs = new TabListener(flux.creators.pageEvents)
 tabs.listen(window.chrome)
 
+
+const jumpToDashboard = () => {
+  chrome.tabs.query({url: chrome.extension.getURL('/*')}, tabs => {
+    if (tabs.length) {
+      return chrome.tabs.update(tabs[0].id, {active: true});
+    }
+    chrome.tabs.create({
+      url: chrome.extension.getURL('/dashboard/index.html'),
+      active: true
+    })
+  });
+}
+
+chrome.pageAction.onClicked.addListener(jumpToDashboard);
+
+
+chrome.runtime.onInstalled.addListener(() =>
+  // Replace all rules ...
+  chrome.declarativeContent.onPageChanged.removeRules(undefined, () =>
+    // With a new rule ...
+    chrome.declarativeContent.onPageChanged.addRules([{
+      // That fires when we're on a familysearch.org domain
+      conditions: [
+          new chrome.declarativeContent.PageStateMatcher({
+          pageUrl: { hostEquals: 'familysearch.org' },
+        })
+      ],
+      // And shows the extension's page action.
+      actions: [ new chrome.declarativeContent.ShowPageAction() ]
+    }])
+  )
+);
+

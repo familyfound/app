@@ -4,12 +4,16 @@
   "version": "0.2.1",
   "manifest_version": 2,
   "options_page": "dashboard/index.html",
+  "page_action": {
+    "default_title": "FamilyFound",
+    "default_icon": "icon-16.png"
+  },
   "permissions": [
     "tabs",
     "cookies",
     "webRequest",
-    "*://*.familysearch.org/",
-    "*://familysearch.org/"
+    "declarativeContent",
+    "*://*.familysearch.org/"
   ],
   "background": {
     "scripts": ["build/background.js"]
