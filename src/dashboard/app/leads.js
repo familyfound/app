@@ -4,9 +4,13 @@ import StrongLead from './strong-lead'
 import {PENDING} from '../../flux'
 import classnames from 'classnames'
 
+const API = 'https://familysearch.org'
+
 var Leads = React.createClass({
   propTypes: {
     leads: React.PropTypes.object,
+    token: React.PropTypes.string,
+    hintsCache: React.PropTypes.func,
   },
 
   _onUpdate(id, data) {
@@ -62,6 +66,7 @@ var Leads = React.createClass({
         {leads.map(strong =>
           <li key={strong.personId}><StrongLead
             pid={strong.personId}
+            hintsCache={pid => this.props.hintsCache(pid, API, this.props.token)}
             onUpdate={this._onUpdate.bind(null, strong.id)}
             finished={strong.isComplete}
             display={strong.display}

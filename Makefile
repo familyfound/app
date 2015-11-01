@@ -21,13 +21,13 @@ zip:
 	zip build-chrome.zip -r ./build-chrome
 
 
-dashboard: dashboard-js dashboard-css
+# dashboard: dashboard-js dashboard-css
 
-dashboard-watch:
-	watchify -v ${OPTS} -x dexie src/dashboard/run.js -o build/dashboard.js
+# dashboard-watch:
+	# watchify -v ${OPTS} -x dexie src/dashboard/run.js -o build/dashboard.js
 
-dashboard-js:
-	browserify ${OPTS} -x dexie src/dashboard/run.js -o build/dashboard.js
+# dashboard-js:
+	# browserify ${OPTS} -x dexie src/dashboard/run.js -o build/dashboard.js
 
 dashboard-css:
 	lessc src/dashboard/run.less > build/dashboard.css

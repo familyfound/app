@@ -8,6 +8,10 @@ import Leads from '../app/leads'
 import Fan from '../app/fan'
 import classnames from 'classnames'
 
+import {promCache, getRecordHints} from '../app/api'
+
+const hintsCache = promCache(getRecordHints)
+
 export default React.createClass({
   getInitialState() {
     return {
@@ -22,6 +26,7 @@ export default React.createClass({
       <FluxComponent stateFromStores={{
         user: {
           value: 'value',
+          token: 'token',
           loggedout: 'loggedout',
         },
         search: {
@@ -33,8 +38,13 @@ export default React.createClass({
         onExtend:'search.extend',
       }}><LeadFinder/></FluxComponent>
 
-      <FluxComponent stateFromStores={{leads: true}} actions={{onUpdate: 'leads.update'}}>
-        <Leads/>
+      <FluxComponent stateFromStores={{
+        leads: true,
+        user: {
+          token: 'token',
+        },
+      }} actions={{onUpdate: 'leads.update'}}>
+        <Leads hintsCache={hintsCache} />
       </FluxComponent>
     </div>
   }

@@ -31,6 +31,24 @@ function cachedRels(pid, api, token, done) {
   })
 }
 
+const promisify = fn => new Promise((res, rej) => fn((err, val) => err ? rej(err) : res(val)))
+const asPromised = fn => (...args) => promisify(done => fn(...args, done))
+
+export const getRecordHints = async (pid, api, token) => {
+  const {data: {matches}} = await apiCallP(`/tree-data/record-matches/${pid}`, api, token, {})
+  return matches
+}
+
+export const promCache = fn => {
+  const cache = {}
+  return (key, ...args) => {
+    if (!cache[key]) {
+      cache[key] = fn(key, ...args)
+    }
+    return cache[key]
+  }
+};
+
 function getUser(api, token, done) {
   apiCall('/platform/users/current', api, token, {}, (err, data) => {
     if (err) return done(err)
@@ -53,9 +71,10 @@ function apiCall(endpoint, api, token, args, done) {
   }).join('&');
   ajax.get(api + endpoint + '?' + params, {
     Authorization: 'Bearer ' + token,
-    Accept: 'application/x-fs-v1+json',
+    Accept: 'application/x-fs-v1+json,application/json',
   }, done)
 }
 
+const apiCallP = asPromised(apiCall)
 
 

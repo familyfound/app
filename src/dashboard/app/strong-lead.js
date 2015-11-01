@@ -55,16 +55,26 @@ function strongText(strongs) {
 
 let StrongLead = React.createClass({
   propTypes: {
+    hintsCache: PT.func,
     display: PT.object,
     strongs: PT.array,
     flags: PT.object,
-    // person: PT.object,
     pid: PT.string,
+    // person: PT.object,
     // relationships: PT.object,
   },
 
   getInitialState() {
-    return {note: this.props.note || ''}
+    return {
+      note: this.props.note || '',
+      hints: [],
+    }
+  },
+
+  componentDidMount() {
+    this.props.hintsCache(this.props.pid).then(hints => {
+      this.setState({hints});
+    });
   },
 
   componentWillReceiveProps(nextProps) {
@@ -120,6 +130,11 @@ let StrongLead = React.createClass({
             </div> : null}
           <div className='StrongLead_reasons'>
             {strongText(this.props.strongs)}
+            {!!this.state.hints.length &&
+              <span title="Record hints found!" className='StrongLead_reason StrongLead_reason-record-hints'>
+                record hints
+              </span>
+            }
           </div>
         </div>
         <div className='StrongLead_right'>
