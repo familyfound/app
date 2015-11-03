@@ -39,6 +39,18 @@ export const getRecordHints = async (pid, api, token) => {
   return matches
 }
 
+export const getSources = async (pid, api, token) => {
+  return apiCallP(`/platform/tree/persons/${pid}/sources`, api, token, {}).then(res => res ? res.sourceDescriptions : [])
+}
+
+export const getOrdinances = (pid, api, token) => {
+  return apiCallP(`/tree-data/reservations/person/${pid}/ordinances`, api, token, {}).then(res => res.data);
+  // 'https://familysearch.org/tree-data/reservations/person/93QM-J26/ordinances?owner=MMVB-7CD&spouses=271D-LKY&pendingTransfer=true&tz=360&locale=en&_=1446415973462'
+}
+
+export const getDuplicates = async (pid, api, token) => {
+}
+
 export const promCache = fn => {
   const cache = {}
   return (key, ...args) => {

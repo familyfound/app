@@ -23,7 +23,7 @@ function send (method, url, headers, data, done) {
       , mime = this.getResponseHeader('content-type')
     if (mime.indexOf('json') !== -1 || mime.indexOf('notablemind') !== -1) {
       try {
-        data = JSON.parse(this.responseText)
+        data = this.responseText.length ? JSON.parse(this.responseText) : null
       } catch (e) {
         return done(new Error('Unexpected server response'))
       }

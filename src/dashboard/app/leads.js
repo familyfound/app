@@ -27,7 +27,6 @@ var Leads = React.createClass({
     if (!this.props.leads || this.props.leads === PENDING) {
       return <em>Looking for some leads...</em>
     }
-    console.log('LEADS', this.props.leads.toJS());
     let {leads} = this.props
     let filterTypes = {
       fresh: strong => !strong.isComplete && !strong.doLater,
@@ -68,6 +67,7 @@ var Leads = React.createClass({
             pid={strong.personId}
             hintsCache={pid => this.props.hintsCache(pid, API, this.props.token)}
             onUpdate={this._onUpdate.bind(null, strong.id)}
+            token={this.props.token}
             finished={strong.isComplete}
             display={strong.display}
             strongs={strong.strong}

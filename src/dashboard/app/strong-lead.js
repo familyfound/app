@@ -2,6 +2,8 @@
 import React from 'react'
 let {PropTypes: PT} = React
 
+import LeadDetails from './LeadDetails';
+
 let relationMap = {
   '1|0|Male': 'Father',
   '1|0|Female': 'Mother',
@@ -67,6 +69,7 @@ let StrongLead = React.createClass({
   getInitialState() {
     return {
       note: this.props.note || '',
+      showDetails: false,
       hints: [],
     }
   },
@@ -96,6 +99,10 @@ let StrongLead = React.createClass({
 
   _onLater() {
     this.props.onUpdate({doLater: !this.props.later, isComplete: false})
+  },
+
+  _onGo() {
+    this.setState({showDetails: !this.state.showDetails});
   },
 
   render: function () {
@@ -151,9 +158,18 @@ let StrongLead = React.createClass({
             <button className='StrongLead_finished' onClick={this._onFinished}>
               {this.props.finished ? 'Work on more' : 'Mark Finished'}
             </button>
+            <button className='StrongLead_go' onClick={this._onGo}>
+              {this.state.showDetails ? '<<' : '>>'}
+            </button>
           </div>
         </div>
       </div>
+      {this.state.showDetails &&
+        <LeadDetails
+          pid={this.props.pid}
+          token={this.props.token}
+          hints={this.state.hints}
+        />}
     </div>
   }
 })
