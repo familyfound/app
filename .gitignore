@@ -6,3 +6,5 @@
 build-chrome.pem
 build-chrome.zip
 /site
+config.json
+/chrome.zip

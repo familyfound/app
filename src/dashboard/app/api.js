@@ -1,6 +1,7 @@
 
 import ajax from './ajax'
 import localForage from 'localforage'
+import config from '../../../config'
 
 export {cachedRels}
 export {getUser}
@@ -88,5 +89,17 @@ function apiCall(endpoint, api, token, args, done) {
 }
 
 const apiCallP = asPromised(apiCall)
+
+export const getToken = (code, done) => {
+  const url = config.authApiBase + `/cis-web/oauth2/v3/token?grant_type=authorization_code&code=${code}&client_id=${config.clientId}`;
+  ajax.post(url, {
+    Accept: 'application/json',
+  }, null, (err, data) => {
+    if (err || data.error) {
+      return done(new Error("Unable to get token"));
+    }
+    done(null, data.access_token);
+  });
+}
 
 

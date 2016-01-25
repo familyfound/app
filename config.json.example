@@ -1,0 +1,5 @@
+{
+	"clientId": "the client id",
+	"apiBase": "https://sandbox.familysearch.org",
+	"authApiBase": "https://sandbox.familysearch.org"
+}

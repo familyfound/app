@@ -28,6 +28,8 @@ window.chrome.runtime.onConnect.addListener(port => {
       actions: {
         leads: {
           localAlias: 'leads',
+          // TODO make this user-local
+          // "leads-" + localStorage.treeUserId
           creator: new DexieActions(db, 'leads'),
         },
         tasks: {

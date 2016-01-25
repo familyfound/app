@@ -4,6 +4,7 @@ import React from 'react'
 import {PENDING} from '../../flux'
 import FluxComponent from '../../flux/flux-component'
 
+import config from '../../../config'
 import Leads from '../app/leads'
 import Fan from '../app/fan'
 import classnames from 'classnames'
@@ -57,8 +58,10 @@ let LeadFinder = React.createClass({
     }
 
     if (this.props.loggedout) {
+      const redirect = encodeURIComponent(window.location.protocol + '//' + window.location.host + window.location.pathname);
+      const loginUrl = config.authApiBase + `/cis-web/oauth2/v3/authorization?response_type=code&redirect_uri=${redirect}&client_id=${config.clientId}`;
       return <h1 className='LoadingWrap LoadingWrap-login'>
-        Please login to familysearch <a href="https://familysearch.org" target="_blank">here</a> to find leads.
+        Please login <a href={loginUrl}>via familysearch</a> to get started.
       </h1>
     }
 

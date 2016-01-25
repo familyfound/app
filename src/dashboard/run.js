@@ -15,8 +15,8 @@ import UserStore from './user-store'
 
 import renderRouter from './router'
 
-var API = 'https://familysearch.org'
-import {getUser} from './app/api'
+import config from "../../config"
+import {getUser, getToken} from './app/api'
 
 const start = (token, user) => {
   let port = window.chrome.runtime.connect({name: 'ff-dashboard'})
@@ -50,13 +50,28 @@ const start = (token, user) => {
   }, 5 * 60 * 1000);
 }
 
-if (localStorage.ffToken) {
-  getUser(API, localStorage.ffToken, (err, user) => {
+const startFromToken = () => {
+  getUser(config.apiBase, localStorage.ffToken, (err, user) => {
     if (err) {
       delete localStorage.ffToken;
       start(null, null);
     } else {
+      localStorage.treeUserId = user.treeUserId
       start(localStorage.ffToken, user);
+    }
+  });
+}
+
+if (localStorage.ffToken) {
+  startFromToken();
+} else if (location.search && location.search.match(/^\?code=/)) {
+  const code = location.search.slice('?code='.length);
+  getToken(code, (err, token) => {
+    if (err) {
+      start(null, null);
+    } else {
+      localStorage.ffToken = token;
+      startFromToken();
     }
   });
 } else {
