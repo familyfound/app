@@ -1,9 +1,18 @@
+/***
+ * NOTICE: THIS FILE IS UNUSED
+ */
 
 import React from 'react/addons'
 import {getUser} from './api'
 import Leads from './leads'
 import Fan from './fan'
 import classnames from 'classnames'
+
+const logout = () => {
+  delete localStorage.ffToken;
+  delete localStorage.treeUserId;
+  window.location.reload();
+}
 
 let App = React.createClass({
   getInitialState() {
@@ -54,6 +63,9 @@ let App = React.createClass({
       </div>
       <div className='App_greeting'>
         Hello {this.state.user.displayName}
+        <button onClick={logout} className='App_logout'>
+          Logout
+        </button>
       </div>
     </div>
     if (!this.props.searcher.started) {
@@ -71,10 +83,14 @@ let App = React.createClass({
       <div className='App_body'>
         <Fan root={this.state.user.personId}
           relationships={this.props.searcher.relationships}/>
-        <div className={classnames('App_status', this.props.searcher.queue.paused ? 'App_status-paused' : '')}>
+        <div className={classnames('App_status',
+                                   this.props.searcher.queue.paused ?
+                                     'App_status-paused' : '')}>
           {!this.props.searcher.queue.paused && 'Searching...'}
           {this.props.searcher.queue.paused &&
-            <button className='App_searchmore' onClick={this._searchMore}>Find me 5 more!</button>}
+            <button className='App_searchmore' onClick={this._searchMore}>
+              Find me 5 more!
+            </button>}
         </div>
         <Body processed={this.props.searcher.processed}
           current={this.state.current}/>

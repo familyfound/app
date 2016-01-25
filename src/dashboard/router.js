@@ -23,6 +23,12 @@ let App = React.createClass({
   }
 })
 
+const logout = () => {
+  delete localStorage.ffToken;
+  delete localStorage.treeUserId;
+  window.location.reload();
+}
+
 let Header = React.createClass({
   render() {
     return <header className='Header'>
@@ -39,6 +45,9 @@ let Header = React.createClass({
       */}
       <div className='Header_greeting'>
         {(this.props.user && this.props.user.displayName) ? 'Hello ' + this.props.user.displayName : null}
+        {this.props.user && <button onClick={logout} className='App_logout'>
+          Logout
+        </button>}
       </div>
     </header>
   }
