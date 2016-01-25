@@ -65,7 +65,7 @@ var Leads = React.createClass({
         {leads.map(strong =>
           <li key={strong.personId}><StrongLead
             pid={strong.personId}
-            hintsCache={pid => this.props.hintsCache(pid, API, this.props.token)}
+            // hintsCache={pid => this.props.hintsCache(pid, API, this.props.token)}
             onUpdate={this._onUpdate.bind(null, strong.id)}
             token={this.props.token}
             finished={strong.isComplete}

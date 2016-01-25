@@ -57,7 +57,7 @@ function strongText(strongs) {
 
 let StrongLead = React.createClass({
   propTypes: {
-    hintsCache: PT.func,
+    // hintsCache: PT.func,
     display: PT.object,
     strongs: PT.array,
     flags: PT.object,
@@ -75,9 +75,11 @@ let StrongLead = React.createClass({
   },
 
   componentDidMount() {
+    /*
     this.props.hintsCache(this.props.pid).then(hints => {
       this.setState({hints});
     });
+    */
   },
 
   componentWillReceiveProps(nextProps) {

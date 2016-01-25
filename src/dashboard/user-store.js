@@ -2,11 +2,11 @@
 import {Store, PENDING} from '../flux'
 
 export default class UserStore extends Store {
-  constructor() {
+  constructor(token, user) {
     super()
-    this.loggedout = false
-    this.token = null
-    this.value = null
+    this.loggedout = !token
+    this.token = token
+    this.value = user
   }
 }
 
@@ -43,7 +43,7 @@ UserStore.getters = {
       if (this.token === null) {
         this.token = PENDING
         this.creators.user.login()
-      } else if (this.token !== PENDING) {
+      } else if (this.token !== PENDING && this.value !== PENDING) {
         this.value = PENDING
         this.creators.user.fetch(this.token)
       }

@@ -13,6 +13,7 @@ export default class UserActions extends ActionCreators {
   }
 
   login() {
+    /*
     chrome.cookies.get({
       url: 'https://familysearch.org/',
       name: 'fssessionid',
@@ -20,6 +21,7 @@ export default class UserActions extends ActionCreators {
       if (!cookie) return this.emit('logout')
       this.emit('login', cookie.value)
     })
+    */
   }
 
   check(token) {

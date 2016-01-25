@@ -1,6 +1,7 @@
 
 // setInterval(checkCookies, 10 * 1000)
 
+/*
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   console.log(tabId, changeInfo, tab.url, tab.title, tab.openerTabId)
 })
@@ -46,3 +47,4 @@ chrome.runtime.onConnectExternal.addListener(function (port) {
 
   checkCookies()
 });
+*/

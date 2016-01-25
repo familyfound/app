@@ -15,33 +15,51 @@ import UserStore from './user-store'
 
 import renderRouter from './router'
 
-let port = window.chrome.runtime.connect({name: 'ff-dashboard'})
-  , proxy = new ChromeProxy(port)
+var API = 'https://familysearch.org'
+import {getUser} from './app/api'
 
-let flux = new FluxClient({
-  // client doesn't own any actions
-  stores: {
-    notes: new CollectionStore('notes', true),
-    leads: new LeadsStore(),
-    search: new SearchStore(),
-    user: new UserStore(),
-  },
-  creators: {
-    search: new SearchActions(),
-    user: new UserActions(),
-  },
-})
+const start = (token, user) => {
+  let port = window.chrome.runtime.connect({name: 'ff-dashboard'})
+    , proxy = new ChromeProxy(port)
 
-flux.connect(proxy).then(() => {
-  window.flux = flux
-  renderRouter(flux, document.body)
-})
+  let flux = new FluxClient({
+    // client doesn't own any actions
+    stores: {
+      notes: new CollectionStore('notes', true),
+      leads: new LeadsStore(),
+      search: new SearchStore(),
+      user: new UserStore(token, user),
+    },
+    creators: {
+      search: new SearchActions(),
+      user: new UserActions(),
+    },
+  })
 
-setInterval(() => {
-  if (flux.stores.user.token) {
-    flux.creators.user.check(flux.stores.user.token);
-  } else {
-    flux.creators.user.login();
-  }
-}, 5000);
+  flux.connect(proxy).then(() => {
+    window.flux = flux
+    renderRouter(flux, document.body)
+  })
+
+  setInterval(() => {
+    if (flux.stores.user.token) {
+      flux.creators.user.check(flux.stores.user.token);
+    } else {
+      // flux.creators.user.login();
+    }
+  }, 5 * 60 * 1000);
+}
+
+if (localStorage.ffToken) {
+  getUser(API, localStorage.ffToken, (err, user) => {
+    if (err) {
+      delete localStorage.ffToken;
+      start(null, null);
+    } else {
+      start(localStorage.ffToken, user);
+    }
+  });
+} else {
+  start(null, null);
+}
 
